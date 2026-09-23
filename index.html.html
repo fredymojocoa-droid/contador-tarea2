@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuenta regresiva - Tarea 2</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:15px;font-family:Arial,Helvetica,sans-serif;background:transparent;color:#333}
+.contenedor{max-width:900px;margin:0 auto;background:#fff;border:1px solid #dbe3ea;border-radius:18px;overflow:hidden;box-shadow:0 5px 18px rgba(0,0,0,.10)}
+.encabezado{background:linear-gradient(135deg,#003b71,#006ba6);padding:25px 20px;text-align:center;color:#fff}
+.alerta{font-size:15px;font-weight:bold;letter-spacing:1.5px;margin-bottom:8px}
+.encabezado h1{margin:0;font-size:27px}
+.contenido{padding:28px;text-align:center}
+.descripcion{max-width:760px;margin:0 auto;font-size:17px;line-height:1.6}
+.titulo-contador{margin:25px 0 16px;font-size:16px;font-weight:bold;color:#4b5563}
+.contador{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:20px 0 28px}
+.bloque{width:135px;background:#f2f6f9;border:1px solid #dce6ed;border-radius:14px;padding:18px 10px}
+.numero{display:block;font-size:38px;line-height:1;font-weight:bold;color:#005883}
+.etiqueta{display:block;margin-top:9px;font-size:12px;font-weight:bold;letter-spacing:1px;color:#555}
+.fecha{max-width:650px;margin:20px auto;padding:17px;background:#fff4df;border-left:6px solid #f2a900;border-radius:8px;line-height:1.7;font-size:16px}
+.recordatorio{max-width:760px;margin:22px auto 0;font-size:16px;line-height:1.6}
+.mensaje-final{margin-top:22px;padding:15px;background:#edf7fb;border-radius:9px;font-size:18px;font-weight:bold;color:#005883}
+.cerrado{width:100%;max-width:600px;padding:22px;background:#fdecec;border:1px solid #f2c6c6;border-radius:12px;color:#9b1c1c;font-size:20px;font-weight:bold}
+@media(max-width:650px){
+ body{padding:5px}.contenido{padding:20px 14px}.encabezado h1{font-size:22px}
+ .descripcion{font-size:15px}.contador{gap:7px}.bloque{width:calc(50% - 7px);padding:15px 5px}.numero{font-size:31px}
+}
+</style>
+</head>
+<body>
+<div class="contenedor">
+  <div class="encabezado">
+    <div class="alerta">⏰ ATENCIÓN, ESTUDIANTE</div>
+    <h1>Cuenta regresiva para finalizar la Tarea 2</h1>
+  </div>
+  <div class="contenido">
+    <p class="descripcion">
+      Recuerde que la <strong>Tarea 2 – Del problema a la solución: construyendo mi primer prototipo CDIO en Scratch</strong>
+      debe ser desarrollada y enviada en el entorno correspondiente
+      <strong>máximo hasta el 27 de septiembre de 2026 a las 11:55 p. m.</strong>
+    </p>
+    <div class="titulo-contador">⏳ ESTE ES EL TIEMPO QUE FALTA PARA EL CIERRE DE LA ACTIVIDAD</div>
+    <div id="contador" class="contador">
+      <div class="bloque"><span id="dias" class="numero">00</span><span class="etiqueta">DÍAS</span></div>
+      <div class="bloque"><span id="horas" class="numero">00</span><span class="etiqueta">HORAS</span></div>
+      <div class="bloque"><span id="minutos" class="numero">00</span><span class="etiqueta">MINUTOS</span></div>
+      <div class="bloque"><span id="segundos" class="numero">00</span><span class="etiqueta">SEGUNDOS</span></div>
+    </div>
+    <div class="fecha">
+      📅 <strong>Fecha límite:</strong> 27 de septiembre de 2026<br>
+      🕚 <strong>Hora de cierre:</strong> 11:55 p. m. – Hora Colombia
+    </div>
+    <p class="recordatorio">
+      Evite dejar el envío para los últimos minutos. Revise que su <strong>prototipo en Scratch</strong>
+      cumpla con las orientaciones establecidas en la guía de aprendizaje y realice la entrega dentro del plazo establecido.
+    </p>
+    <div class="mensaje-final">🚀 ¡Avance con su prototipo y complete su entrega a tiempo!</div>
+  </div>
+</div>
+<script>
+const fechaLimite = new Date("2026-09-27T23:55:00-05:00").getTime();
+
+function actualizarContador(){
+  const ahora = Date.now();
+  const diferencia = fechaLimite - ahora;
+
+  if(diferencia <= 0){
+    document.getElementById("contador").innerHTML =
+      '<div class="cerrado">⏰ El plazo para realizar la entrega de la Tarea 2 ha finalizado.</div>';
+    return false;
+  }
+
+  const dias = Math.floor(diferencia/(1000*60*60*24));
+  const horas = Math.floor((diferencia%(1000*60*60*24))/(1000*60*60));
+  const minutos = Math.floor((diferencia%(1000*60*60))/(1000*60));
+  const segundos = Math.floor((diferencia%(1000*60))/1000);
+
+  document.getElementById("dias").textContent = String(dias).padStart(2,"0");
+  document.getElementById("horas").textContent = String(horas).padStart(2,"0");
+  document.getElementById("minutos").textContent = String(minutos).padStart(2,"0");
+  document.getElementById("segundos").textContent = String(segundos).padStart(2,"0");
+  return true;
+}
+
+actualizarContador();
+const intervalo = setInterval(function(){
+  if(!actualizarContador()) clearInterval(intervalo);
+},1000);
+</script>
+</body>
+</html>
